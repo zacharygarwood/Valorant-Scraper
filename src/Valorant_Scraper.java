@@ -26,10 +26,10 @@ public class Valorant_Scraper {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         driver.navigate().to(base_url);
 
-        final WebElement allGames = driver.findElementByClassName("trn-gamereport-list");
+        WebElement allGames = driver.findElementByClassName("trn-gamereport-list");
 
-        final List<String> dateGamesPlayed = createDatesGamesPlayed(allGames);
-        final List<String> linksToMatches = createLinksToGames(allGames);
+        List<String> dateGamesPlayed = createDatesGamesPlayed(allGames);
+        List<String> linksToMatches = createLinksToGames(allGames);
         List<List<String>> playerData = createPlayerData(linksToMatches, driver); // first list is links // second list is names // third list is ranks
 
         createPlayerDataCSV(playerData);
@@ -39,8 +39,8 @@ public class Valorant_Scraper {
 
     private static List<String> createDatesGamesPlayed(WebElement allGames) {
         System.out.println("Getting dates to matches...");
-        final List<WebElement> dateGamesPlayedWE = allGames.findElements(By.tagName("h3"));
-        final List<String> dateGamesPlayed = new ArrayList<>();
+        List<WebElement> dateGamesPlayedWE = allGames.findElements(By.tagName("h3"));
+        List<String> dateGamesPlayed = new ArrayList<>();
         for (WebElement we : dateGamesPlayedWE) {
             dateGamesPlayed.add(we.getText());
         }
@@ -49,8 +49,8 @@ public class Valorant_Scraper {
 
     private static List<String> createLinksToGames(WebElement allGames) {
         System.out.println("Getting links to matches...");
-        final List<WebElement> webElementsForLinksToMatches = allGames.findElements(By.tagName("a"));
-        final List<String> linksToMatches = new ArrayList<>();
+        List<WebElement> webElementsForLinksToMatches = allGames.findElements(By.tagName("a"));
+        List<String> linksToMatches = new ArrayList<>();
         for (WebElement we : webElementsForLinksToMatches) {
             linksToMatches.add(we.getAttribute("href"));
         }
@@ -87,11 +87,10 @@ public class Valorant_Scraper {
     private static List<String> createPlayerRanks(List<List<String>> playerData, ChromeDriver driver) throws InterruptedException {
         System.out.println("Getting player ranks...");
         driver.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        final List<String> playerRanks = new ArrayList<>();
+        List<String> playerRanks = new ArrayList<>();
         for(int i = 0; i < playerData.get(0).size(); i++) {
             working_url = (String) playerData.get(0).get(i);
             driver.navigate().to(working_url);
-            //TimeUnit.SECONDS.sleep(3);
             try {
                 WebElement playerRankWE = driver.findElementByClassName("valorant-highlighted-stat__value");
                 playerRanks.add(playerRankWE.getText());
@@ -159,7 +158,7 @@ public class Valorant_Scraper {
 
         String filePath = "C:/Users/zgarw/Documents/Projects/valorant_stats_2/data/player_data.csv";
         BufferedReader reader = new BufferedReader(new FileReader(filePath));
-        Set<String> lines = new HashSet<String>(10000); // maybe should be bigger
+        Set<String> lines = new HashSet<String>(10000);
         String line;
         while ((line = reader.readLine()) != null) {
             lines.add(line);
