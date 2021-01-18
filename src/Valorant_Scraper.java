@@ -34,6 +34,7 @@ public class Valorant_Scraper {
 
         createPlayerDataCSV(playerData);
         removeDuplicatesFromCSV("C:/Users/zgarw/Documents/Projects/valorant_stats_2/data/player_data.csv");
+
         driver.quit();
     }
 
@@ -61,8 +62,9 @@ public class Valorant_Scraper {
         System.out.println("Getting player names...");
         List<WebElement> playerNamesWE = allPlayers.findElements(By.className("trn-ign"));
         List<String> playerNames = new ArrayList<>();
-        for (WebElement we : playerNamesWE) {
-            playerNames.add(we.getText().replace(" #", "#"));
+
+        for(WebElement we : playerNamesWE) {
+            playerNames.add(we.getText().replace("\n", ""));
         }
         return playerNames;
     }
