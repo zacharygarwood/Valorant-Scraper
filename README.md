@@ -1,2 +1,4 @@
-# Valorant Stats Tracker
-This project gathers the ranks of the other players in the the games that I played, and stores them in a CSV, which I then used to make visuals of the data.
+# Overview
+Valorant Scraper is a web scraping application designed for the popular video game Valorant. It gathers statistics from people I played with and stores the cleaned data into a CSV.
+
+The purpose behind the project, and visualizations of the data can be found out on my [website](https://zacharygarwood.com/projects/valorant_scraper)! 
